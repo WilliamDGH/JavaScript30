@@ -62,11 +62,46 @@
       background: black;
       position: absolute;
       top: 50%;
+      transform-origin: 100%;
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.42, 0, 0.19, 3.49);
+      transform: rotate(90deg);
+    }
+
+    .min-hand {
+      height: 3px;
+    }
+
+    .second-hand {
+      height: 1px;
     }
 
   </style>
 
   <script>
+    setInterval(function(){
+      const currentTime = new Date();
+      const currentSeconds = currentTime.getSeconds();
+      document.querySelector(".second-hand").style.transform = `rotate(${90 + currentSeconds * 6}deg)`;
+    }, 1000);
+
+    setInterval(function(){
+      const currentTime = new Date();
+      const currentMinute = currentTime.getMinutes();
+      const currentSeconds = currentTime.getSeconds();
+      document.querySelector(".min-hand").style.transform = `rotate(${90 + currentMinute * 6 + currentSeconds * 0.1}deg)`;
+    }, 1000);
+
+    setInterval(function(){
+      const currentTime = new Date();
+      let currentHour = currentTime.getHours();
+      if (currentHour > 12) {
+        currentHour = currentHour - 12;
+      }
+      const currentMinute = currentTime.getMinutes();
+      const currentSeconds = currentTime.getSeconds();
+      document.querySelector(".hour-hand").style.transform = `rotate(${90 + currentHour * 30 + currentMinute * 0.5 + currentSeconds * 0.0083}deg)`;
+    }, 1000);
 
 
   </script>
